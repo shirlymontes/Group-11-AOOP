@@ -18,20 +18,17 @@ import service.DBConnection;
  */
 public class LoginFrame extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Login
-     */
+
     public LoginFrame() {
         initComponents();
-        addImageToPanel(); // ← you create this method
+        addImageToPanel();
 }
 
 private void addImageToPanel() {
     ImageIcon logo = new ImageIcon(getClass().getResource("/images/loginBG.png"));
     JLabel logoLabel = new JLabel(logo);
 
-    jPanel1.add(logoLabel); // replace with your actual panel (e.g., jPanel1)
-    // Optionally: revalidate and repaint
+    jPanel1.add(logoLabel); 
     jPanel1.revalidate();
     jPanel1.repaint();
 
