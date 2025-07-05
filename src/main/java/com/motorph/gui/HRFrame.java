@@ -4,13 +4,14 @@
  */
 package com.motorph.gui;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JButton;
 import form.AddEmployeeForm; 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 
 public class HRFrame extends javax.swing.JFrame {
@@ -19,15 +20,21 @@ public class HRFrame extends javax.swing.JFrame {
     public HRFrame() {
         initComponents();
         loadEmployeeData();
+        
+         AddEmployeeForm form = new AddEmployeeForm(this);
+           form.setVisible(true);
+
     }
 
-    private void loadEmployeeData() {
+   
+
+    public void loadEmployeeData() {
     String url = "jdbc:mysql://localhost:3306/payroll_db"; 
     String user = "root"; 
     String password = "mmdcaoop"; 
 
     String query = "SELECT employee_id, last_name, first_name, birthday, address, phone_number, sss_number, philhealth_number, tin_number, pagibig_number, employment_status FROM employee";
-
+    
     try {
         Connection con = DriverManager.getConnection(url, user, password);
         PreparedStatement pst = con.prepareStatement(query);
@@ -59,6 +66,7 @@ public class HRFrame extends javax.swing.JFrame {
 
     } catch (Exception e) {
         e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error loading employee data:" + e.getMessage());
     }
 }
 
@@ -78,7 +86,7 @@ public class HRFrame extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         btnToAddEmployee = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(1400, 1200));
@@ -221,13 +229,13 @@ public class HRFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton8.setBackground(new java.awt.Color(255, 102, 102));
-        jButton8.setForeground(new java.awt.Color(0, 0, 0));
-        jButton8.setText("DELETE");
-        jButton8.setToolTipText("");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setBackground(new java.awt.Color(255, 102, 102));
+        btnDelete.setForeground(new java.awt.Color(0, 0, 0));
+        btnDelete.setText("DELETE");
+        btnDelete.setToolTipText("");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -243,7 +251,7 @@ public class HRFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+                .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addGap(37, 37, 37))
             .addComponent(jScrollPane1)
         );
@@ -254,7 +262,7 @@ public class HRFrame extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnToAddEmployee)
                     .addComponent(jButton7)
-                    .addComponent(jButton8)
+                    .addComponent(btnDelete)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,15 +315,13 @@ public class HRFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnToAddEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToAddEmployeeActionPerformed
-            javax.swing.JFrame addFrame = new javax.swing.JFrame("Add Employee");
-    addFrame.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
-
     
-    addFrame.getContentPane().add(new form.AddEmployeeForm());
-
-    addFrame.pack();
-    addFrame.setLocationRelativeTo(null); 
-    addFrame.setVisible(true);
+    AddEmployeeForm form = new AddEmployeeForm(this);
+    javax.swing.JFrame frame = new javax.swing.JFrame("Add Employee");
+    frame.setContentPane(form);
+    frame.pack();
+    frame.setLocationRelativeTo(this);
+    frame.setVisible(true);
     }//GEN-LAST:event_btnToAddEmployeeActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -326,9 +332,65 @@ public class HRFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton8ActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // Get the selected row index
+    int selectedRow = EmployeeMngtTable.getSelectedRow();
+
+    if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select an employee to delete.", "No Selection", JOptionPane.WARNING_MESSAGE);
+        return;
+    }
+
+    // Get the employee ID from the table model
+    DefaultTableModel model = (DefaultTableModel) EmployeeMngtTable.getModel();
+    String employeeId = model.getValueAt(selectedRow, 0).toString();
+
+    // Confirm deletion
+    int confirm = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to delete Employee #" + employeeId + "?",
+            "Confirm Deletion",
+            JOptionPane.YES_NO_OPTION
+    );
+
+    if (confirm == JOptionPane.YES_OPTION) {
+        deleteEmployeeFromDatabase(employeeId);
+        model.removeRow(selectedRow);
+        JOptionPane.showMessageDialog(this, "Employee deleted successfully.", "Deleted", JOptionPane.INFORMATION_MESSAGE);
+    }
+}
+
+    private void deleteEmployeeFromDatabase(String employeeId) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+           
+            String url = "jdbc:mysql://localhost:3306/payroll_db";
+            String username = "root";
+            String password = "mmdcaoop"; 
+
+            conn = DriverManager.getConnection(url, username, password);
+
+            String sql = "DELETE FROM employee WHERE employee_id = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, employeeId);
+
+            stmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error deleting employee: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            try {
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }
+
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -368,10 +430,10 @@ public class HRFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable EmployeeMngtTable;
+    private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnToAddEmployee;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
