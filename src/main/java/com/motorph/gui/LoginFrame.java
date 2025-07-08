@@ -193,9 +193,8 @@ private void addImageToPanel() {
 
         if (rs.next()) {
             String role = rs.getString("role");
-            JOptionPane.showMessageDialog(this, "Login successful! Role: " + role);
-
-            // Open corresponding frame
+            //JOptionPane.showMessageDialog(this, "Login successful! Role: " + role);
+  
             if ("EMPLOYEE".equals(role)) {
                 new EmployeeFrame().setVisible(true);
             } else if ("HR".equals(role)) {

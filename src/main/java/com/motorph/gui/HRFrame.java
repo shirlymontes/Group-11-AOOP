@@ -6,11 +6,14 @@ package com.motorph.gui;
 
 import java.sql.ResultSet;
 import form.AddEmployeeForm; 
+import form.EditEmployeeForm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -23,51 +26,75 @@ public class HRFrame extends javax.swing.JFrame {
         
          AddEmployeeForm form = new AddEmployeeForm(this);
            form.setVisible(true);
+           
+            EmployeeMngtTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            jScrollPane1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+             EmployeeMngtTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+            EmployeeMngtTable.getColumnModel().getColumn(1).setPreferredWidth(150); 
+            EmployeeMngtTable.getColumnModel().getColumn(2).setPreferredWidth(150); 
+            EmployeeMngtTable.getColumnModel().getColumn(3).setPreferredWidth(120);
+            EmployeeMngtTable.getColumnModel().getColumn(4).setPreferredWidth(250); 
+            EmployeeMngtTable.getColumnModel().getColumn(5).setPreferredWidth(100); 
 
     }
 
    
 
-    public void loadEmployeeData() {
-    String url = "jdbc:mysql://localhost:3306/payroll_db"; 
-    String user = "root"; 
-    String password = "mmdcaoop"; 
-
-    String query = "SELECT employee_id, last_name, first_name, birthday, address, phone_number, sss_number, philhealth_number, tin_number, pagibig_number, employment_status FROM employee";
-    
+   public void loadEmployeeData() {
     try {
-        Connection con = DriverManager.getConnection(url, user, password);
-        PreparedStatement pst = con.prepareStatement(query);
-        ResultSet rs = pst.executeQuery();
+        Connection conn = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/payroll_db", "root", "mmdcaoop");
+
+        String sql = "SELECT employee_id, first_name, last_name, birthday, address, phone_number, " +
+                     "sss_number, philhealth_number, tin_number, pagibig_number, employment_status, " +
+                     "position, supervisor, basic_salary, rice_subsidy, phone_allowance, clothing_allowance, " +
+                     "hourly_rate, gross_semi_monthly " +
+                     "FROM employee";
+
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        ResultSet rs = stmt.executeQuery();
 
         DefaultTableModel model = (DefaultTableModel) EmployeeMngtTable.getModel();
         model.setRowCount(0); // clear old data
 
         while (rs.next()) {
-            Object[] row = {
-                rs.getInt("employee_id"),
-                rs.getString("last_name"),
-                rs.getString("first_name"),
-                rs.getDate("birthday"),
-                rs.getString("address"),
-                rs.getString("phone_number"),
-                rs.getString("sss_number"),
-                rs.getString("philhealth_number"),
-                rs.getString("tin_number"),
-                rs.getString("pagibig_number"),
-                rs.getString("employment_status")
-            };
-            model.addRow(row);
+            int employeeId = rs.getInt("employee_id");
+            String firstName = rs.getString("first_name");
+            String lastName = rs.getString("last_name");
+            String birthday = rs.getString("birthday");
+            String address = rs.getString("address");
+            String phoneNumber = rs.getString("phone_number");
+            String sss = rs.getString("sss_number");
+            String philHealth = rs.getString("philhealth_number");
+            String tin = rs.getString("tin_number");
+            String pagIbig = rs.getString("pagibig_number");
+            String employmentStatus = rs.getString("employment_status");
+            String position = rs.getString("position");
+            String supervisor = rs.getString("supervisor");
+            String basicSalary = rs.getString("basic_salary");
+            String riceSubsidy = rs.getString("rice_subsidy");
+            String phoneAllowance = rs.getString("phone_allowance");
+            String clothingAllowance = rs.getString("clothing_allowance");
+            String hourlyRate = rs.getString("hourly_rate");
+            String grossSemi = rs.getString("gross_semi_monthly");
+
+            model.addRow(new Object[]{
+                employeeId, firstName, lastName, birthday, address, phoneNumber, sss, philHealth, tin, pagIbig,
+                employmentStatus, position, supervisor, basicSalary, riceSubsidy, phoneAllowance,
+                clothingAllowance, hourlyRate, grossSemi
+            });
         }
 
         rs.close();
-        pst.close();
-        con.close();
+        stmt.close();
+        conn.close();
 
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error loading employee data:" + e.getMessage());
+        JOptionPane.showMessageDialog(this, "Error loading employee data: " + e.getMessage());
     }
+
+
 }
 
     @SuppressWarnings("unchecked")
@@ -85,7 +112,7 @@ public class HRFrame extends javax.swing.JFrame {
         EmployeeMngtTable = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         btnToAddEmployee = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnToEditEmployee = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -162,43 +189,43 @@ public class HRFrame extends javax.swing.JFrame {
         EmployeeMngtTable.setForeground(new java.awt.Color(0, 51, 102));
         EmployeeMngtTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Employee ID", "Last Name", "First Name", "Birthday", "Address", "Phone Number", "SSS #", "PhilHealh #", "TIN #", "Pag-IBIG #", "Status"
+                "Employee ID", "Last Name", "First Name", "Birthday", "Address", "Phone Number", "SSS #", "PhilHealh #", "TIN #", "Pag-IBIG #", "Status", "Position", "Immediate Supervisor", "Basic Salary", "Rice Subsidy", "Phone Allowance", "Clothing Allowance", "Hourly Rate", "Gross Semi-Monthly Rate"
             }
         ));
         EmployeeMngtTable.setGridColor(new java.awt.Color(255, 255, 255));
@@ -219,13 +246,13 @@ public class HRFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setBackground(new java.awt.Color(51, 153, 0));
-        jButton7.setForeground(new java.awt.Color(0, 0, 0));
-        jButton7.setText("EDIT");
-        jButton7.setToolTipText("");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
+        btnToEditEmployee.setBackground(new java.awt.Color(51, 153, 0));
+        btnToEditEmployee.setForeground(new java.awt.Color(0, 0, 0));
+        btnToEditEmployee.setText("EDIT");
+        btnToEditEmployee.setToolTipText("");
+        btnToEditEmployee.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
+                btnToEditEmployeeActionPerformed(evt);
             }
         });
 
@@ -249,7 +276,7 @@ public class HRFrame extends javax.swing.JFrame {
                 .addGap(791, 791, 791)
                 .addComponent(btnToAddEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                .addComponent(btnToEditEmployee, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addGap(37, 37, 37))
@@ -261,7 +288,7 @@ public class HRFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnToAddEmployee)
-                    .addComponent(jButton7)
+                    .addComponent(btnToEditEmployee)
                     .addComponent(btnDelete)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -328,12 +355,35 @@ public class HRFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton7ActionPerformed
+    private void btnToEditEmployeeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnToEditEmployeeActionPerformed
+         int selectedRow = EmployeeMngtTable.getSelectedRow();
+        if (selectedRow == -1) {
+        JOptionPane.showMessageDialog(this, "Please select an employee to edit.");
+        return;
+    }
+
+    // Get data from the selected row
+    int employeeId = (int) EmployeeMngtTable.getValueAt(selectedRow, 0); // assuming first column is ID
+    String firstName = (String) EmployeeMngtTable.getValueAt(selectedRow, 2);
+    String lastName = (String) EmployeeMngtTable.getValueAt(selectedRow, 1);
+    String birthday = EmployeeMngtTable.getValueAt(selectedRow, 3).toString();
+    String address = (String) EmployeeMngtTable.getValueAt(selectedRow, 4);
+    String phoneNumber = (String) EmployeeMngtTable.getValueAt(selectedRow, 5);
+    String sss = (String) EmployeeMngtTable.getValueAt(selectedRow, 6);
+    String philHealth = (String) EmployeeMngtTable.getValueAt(selectedRow, 7);
+    String tin = (String) EmployeeMngtTable.getValueAt(selectedRow, 8);
+    String pagIbig = (String) EmployeeMngtTable.getValueAt(selectedRow, 9);
+    String employmentStatus = (String) EmployeeMngtTable.getValueAt(selectedRow, 10);
+
+    
+    // Open the form
+    EditEmployeeForm form = new EditEmployeeForm(this, employeeId, firstName, lastName, birthday, address, phoneNumber, sss, philHealth, tin, pagIbig, employmentStatus);
+
+   form.setVisible(true);
+    }//GEN-LAST:event_btnToEditEmployeeActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // Get the selected row index
+    // Get the selected row index
     int selectedRow = EmployeeMngtTable.getSelectedRow();
 
     if (selectedRow == -1) {
@@ -432,8 +482,8 @@ public class HRFrame extends javax.swing.JFrame {
     private javax.swing.JTable EmployeeMngtTable;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnToAddEmployee;
+    private javax.swing.JButton btnToEditEmployee;
     private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;

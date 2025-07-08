@@ -196,7 +196,7 @@
                       <EmptySpace min="-2" pref="791" max="-2" attributes="0"/>
                       <Component id="btnToAddEmployee" pref="129" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton7" pref="129" max="32767" attributes="0"/>
+                      <Component id="btnToEditEmployee" pref="129" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnDelete" pref="128" max="32767" attributes="0"/>
                       <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
@@ -210,7 +210,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="btnToAddEmployee" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnToEditEmployee" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnDelete" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -238,7 +238,7 @@
                       <Color blue="66" green="33" red="0" type="rgb"/>
                     </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="11" rowCount="34">
+                      <Table columnCount="19" rowCount="34">
                         <Column editable="true" title="Employee ID" type="java.lang.Object"/>
                         <Column editable="true" title="Last Name" type="java.lang.Object"/>
                         <Column editable="true" title="First Name" type="java.lang.Object"/>
@@ -250,6 +250,14 @@
                         <Column editable="true" title="TIN #" type="java.lang.Object"/>
                         <Column editable="true" title="Pag-IBIG #" type="java.lang.Object"/>
                         <Column editable="true" title="Status" type="java.lang.Object"/>
+                        <Column editable="true" title="Position" type="java.lang.Object"/>
+                        <Column editable="true" title="Immediate Supervisor" type="java.lang.Object"/>
+                        <Column editable="true" title="Basic Salary" type="java.lang.Object"/>
+                        <Column editable="true" title="Rice Subsidy" type="java.lang.Object"/>
+                        <Column editable="true" title="Phone Allowance" type="java.lang.Object"/>
+                        <Column editable="true" title="Clothing Allowance" type="java.lang.Object"/>
+                        <Column editable="true" title="Hourly Rate" type="java.lang.Object"/>
+                        <Column editable="true" title="Gross Semi-Monthly Rate" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
@@ -288,7 +296,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnToAddEmployeeActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton7">
+            <Component class="javax.swing.JButton" name="btnToEditEmployee">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="0" green="99" red="33" type="rgb"/>
@@ -300,7 +308,7 @@
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnToEditEmployeeActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnDelete">
