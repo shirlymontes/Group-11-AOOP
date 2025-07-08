@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.NumberFormat;
+import java.time.Month;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -62,6 +66,10 @@ public class FinanceFrame extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         PayrollTable = new javax.swing.JTable();
         jLabel28 = new javax.swing.JLabel();
+        dateChooserMonth = new javax.swing.JComboBox<>();
+        dateChooserPeriod = new javax.swing.JComboBox<>();
+        dateChooserYear = new javax.swing.JComboBox<>();
+        btnGenerate = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
@@ -105,7 +113,6 @@ public class FinanceFrame extends javax.swing.JFrame {
         jLabel25 = new javax.swing.JLabel();
         tfNetPay = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
-        btnCalculate = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         tfSss = new javax.swing.JTextField();
@@ -131,39 +138,43 @@ public class FinanceFrame extends javax.swing.JFrame {
         PayrollTable.setBackground(new java.awt.Color(255, 255, 255));
         PayrollTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Employee Name", "Total Hours", "Basic Salary", "Status"
+                "ID", "Employee Name", "Total Hours", "Basic Salary", "Gross Salary", "SSS", "Pag-IBIG", "PhilHealth", "Tax", "Net Pay", "Status"
             }
         ));
         PayrollTable.setGridColor(new java.awt.Color(255, 255, 255));
@@ -174,6 +185,19 @@ public class FinanceFrame extends javax.swing.JFrame {
         jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel28.setText("PAYROLL ");
 
+        dateChooserMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Month", "January", "February", "March", "April", "May", "June", "July ", "August", "September", "October", "November", "December" }));
+
+        dateChooserPeriod.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Period", "1st-15th", "16th-End" }));
+
+        dateChooserYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Year", "2025", "2024" }));
+
+        btnGenerate.setText("Generate");
+        btnGenerate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -181,17 +205,32 @@ public class FinanceFrame extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel28)
-                    .addComponent(jScrollPane1))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel28)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(dateChooserMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dateChooserPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dateChooserYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnGenerate)
+                        .addGap(19, 19, 19))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
                 .addGap(27, 27, 27))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel28)
+                .addGap(21, 21, 21)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel28)
+                    .addComponent(dateChooserMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateChooserPeriod, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(dateChooserYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerate))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
                 .addGap(17, 17, 17))
         );
 
@@ -218,9 +257,9 @@ public class FinanceFrame extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
                 .addGap(1103, 1103, 1103)
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
                 .addGap(67, 67, 67))
         );
         jPanel11Layout.setVerticalGroup(
@@ -260,7 +299,7 @@ public class FinanceFrame extends javax.swing.JFrame {
             .addGroup(jPanel12Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(jLabel27)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -287,7 +326,7 @@ public class FinanceFrame extends javax.swing.JFrame {
         tfMonthlyRate.setBorder(null);
 
         jLabel5.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel5.setText("Daily Rate");
+        jLabel5.setText("Total Hours");
 
         tfDailyRate.setForeground(new java.awt.Color(255, 255, 255));
         tfDailyRate.setBorder(null);
@@ -331,13 +370,13 @@ public class FinanceFrame extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfOvertime)
-                            .addComponent(tfDaysWorked)
-                            .addComponent(tfDailyRate)
-                            .addComponent(tfMonthlyRate)
-                            .addComponent(tfGrossIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tfMonthlyRate, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfDailyRate, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfDaysWorked, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfOvertime, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfGrossIncome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(16, 16, 16))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -353,11 +392,14 @@ public class FinanceFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tfDailyRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(tfDaysWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(tfDaysWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel6)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(tfOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -418,14 +460,14 @@ public class FinanceFrame extends javax.swing.JFrame {
                             .addComponent(jLabel12)
                             .addComponent(jLabel13)
                             .addComponent(jLabel15))
-                        .addGap(18, 18, 18)
+                        .addGap(5, 5, 5)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(tfClothingAllowance, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                                 .addComponent(tfPhoneAllowance)
                                 .addComponent(tfRiceAllowance))
                             .addComponent(tfTotalBenefits, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -536,19 +578,6 @@ public class FinanceFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnCalculate.setBackground(new java.awt.Color(9, 22, 58));
-        btnCalculate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnCalculate.setForeground(new java.awt.Color(255, 255, 255));
-        btnCalculate.setText("CALCULATE");
-        btnCalculate.setToolTipText("");
-        btnCalculate.setActionCommand("         Calculate          ");
-        btnCalculate.setBorder(null);
-        btnCalculate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalculateActionPerformed(evt);
-            }
-        });
-
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
         jPanel5.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -601,7 +630,7 @@ public class FinanceFrame extends javax.swing.JFrame {
                             .addComponent(jLabel18)
                             .addComponent(jLabel19)
                             .addComponent(jLabel20))
-                        .addGap(18, 18, 18)
+                        .addGap(5, 5, 5)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(tfWithHolding, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                             .addComponent(tfPagIbig)
@@ -646,32 +675,32 @@ public class FinanceFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(5, 5, 5)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(208, 208, 208)
-                        .addComponent(btnCalculate, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(20, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(56, 56, 56)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tfName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -679,7 +708,7 @@ public class FinanceFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(tfEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -687,9 +716,7 @@ public class FinanceFrame extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(26, 26, 26)
-                .addComponent(btnCalculate, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -702,7 +729,7 @@ public class FinanceFrame extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
+                        .addGap(32, 32, 32)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(58, 58, 58))
@@ -726,7 +753,7 @@ public class FinanceFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1450, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1488, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -752,10 +779,240 @@ public class FinanceFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNetPayActionPerformed
 
-    private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCalculateActionPerformed
+    private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
+       String selectedMonth = (String) dateChooserMonth.getSelectedItem();
+            String selectedYear = (String) dateChooserYear.getSelectedItem();
+            String selectedPeriod = (String) dateChooserPeriod.getSelectedItem();
 
+            if (selectedMonth == null || selectedYear == null || selectedPeriod == null) {
+                JOptionPane.showMessageDialog(this, "Please select Month, Year, and Period.");
+                return;
+            }
+
+            int month;
+            try {
+                month = Month.valueOf(selectedMonth.toUpperCase()).getValue() - 1; // Calendar uses 0-based months
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Invalid month: " + selectedMonth);
+                return;
+            }
+
+            int year = Integer.parseInt(selectedYear);
+
+
+
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, year);
+            cal.set(Calendar.MONTH, month);
+
+            java.sql.Date startDate, endDate;
+
+            if (selectedPeriod.equalsIgnoreCase("1st Half")) {
+                cal.set(Calendar.DAY_OF_MONTH, 1);
+                startDate = new java.sql.Date(cal.getTimeInMillis());
+                cal.set(Calendar.DAY_OF_MONTH, 15);
+                endDate = new java.sql.Date(cal.getTimeInMillis());
+            } else {
+                cal.set(Calendar.DAY_OF_MONTH, 16);
+                startDate = new java.sql.Date(cal.getTimeInMillis());
+                cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+                endDate = new java.sql.Date(cal.getTimeInMillis());
+            }
+
+            System.out.println("Payroll Period: " + startDate + " to " + endDate);
+
+            try (Connection conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/payroll_db", "root", "mmdcaoop")) {
+
+                String sql = "SELECT e.employee_id, e.first_name, e.last_name, e.hourly_rate, "
+                           + "e.rice_subsidy, e.phone_allowance, e.clothing_allowance, "
+                           + "SUM(a.hours_worked) as total_hours "
+                           + "FROM employee e "
+                           + "JOIN attendance a ON e.employee_id = a.employee_id "
+                           + "WHERE a.date BETWEEN ? AND ? "
+                           + "GROUP BY e.employee_id";
+
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.setDate(1, startDate);
+                stmt.setDate(2, endDate);
+
+                ResultSet rs = stmt.executeQuery();
+
+
+                DefaultTableModel model = (DefaultTableModel) PayrollTable.getModel();
+                model.setRowCount(0);
+
+                while (rs.next()) {
+                    int empId = rs.getInt("employee_id");
+                    String name = rs.getString("first_name") + " " + rs.getString("last_name");
+                    double hourlyRate = rs.getDouble("hourly_rate");
+                    double totalHours = rs.getDouble("total_hours");
+                    double rice = rs.getDouble("rice_subsidy");
+                    double phone = rs.getDouble("phone_allowance");
+                    double clothing = rs.getDouble("clothing_allowance");
+
+                    double basicSalary = hourlyRate * totalHours;
+                    double gross = basicSalary + rice + phone + clothing;
+
+                    double sssContribution = calculateSssContribution(basicSalary);
+                    double pagibigContribution = calculatePagibigContribution(basicSalary);
+                    double philhealthContribution = calculatePhilhealthContribution(basicSalary);
+
+                    double annualTax = calculateAnnualTax(gross * 12);
+                    double withHoldingTax = annualTax / 12;
+
+                    double totalDeductions = sssContribution + pagibigContribution + philhealthContribution + withHoldingTax;
+                    double netSalary = gross - totalDeductions;
+
+
+                    String status = "Pending";
+
+
+                    model.addRow(new Object[] {
+                        empId,
+                        name,
+                        totalHours,
+                        basicSalary,
+                        gross,
+                       sssContribution,
+                       pagibigContribution,
+                       philhealthContribution,
+                       withHoldingTax,
+                        netSalary,
+                        status
+                    });
+
+                    System.out.println(empId + " | " + name + " | Hours: " + totalHours
+                        + " | Gross: " + gross
+                        + " | Deductions: " + totalDeductions
+                        + " | Net: " + netSalary
+                        + " | Status: " + status);
+                }
+
+                JOptionPane.showMessageDialog(this, "Payroll generated successfully!");
+
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(this, "Error generating payroll: " + ex.getMessage());
+
+            }
+
+
+    
+    }//GEN-LAST:event_btnGenerateActionPerformed
+
+    // calculate SSS contribution based on basic salary
+    private double calculateSssContribution(double basicSalary) {
+        if (basicSalary >= 12750 && basicSalary < 13250) {
+            return 585.00;
+        } else if (basicSalary >= 13250 && basicSalary < 13750) {
+            return 607.50;
+        } else if (basicSalary >= 13750 && basicSalary < 14250) {
+            return 630.00;
+        } else if (basicSalary >= 14250 && basicSalary < 14750) {
+            return 652.50;
+        } else if (basicSalary >= 14750 && basicSalary < 15250) {
+            return 675.00;
+        } else if (basicSalary >= 15250 && basicSalary < 15750) {
+            return 697.50;
+        } else if (basicSalary >= 15750 && basicSalary < 16250) {
+            return 720.00;
+        } else if (basicSalary >= 16250 && basicSalary < 16750) {
+            return 742.50;
+        } else if (basicSalary >= 16750 && basicSalary < 17250) {
+            return 765.00;
+        } else if (basicSalary >= 17250 && basicSalary < 17750) {
+            return 787.50;
+        } else if (basicSalary >= 17750 && basicSalary < 18250) {
+            return 810.00;
+        } else if (basicSalary >= 18250 && basicSalary < 18750) {
+            return 832.50;
+        } else if (basicSalary >= 18750 && basicSalary < 19250) {
+            return 855.00;
+        } else if (basicSalary >= 19250 && basicSalary < 19750) {
+            return 877.50;
+        } else if (basicSalary >= 19750 && basicSalary < 20250) {
+            return 900.00;
+        } else if (basicSalary >= 20250 && basicSalary < 20750) {
+            return 922.50;
+        } else if (basicSalary >= 20750 && basicSalary < 21250) {
+            return 945.00;
+        } else if (basicSalary >= 21250 && basicSalary < 21750) {
+            return 967.50;
+        } else if (basicSalary >= 21750 && basicSalary < 22250) {
+            return 990.00;
+        } else if (basicSalary >= 22250 && basicSalary < 22750) {
+            return 1012.50;
+        } else if (basicSalary >= 22750 && basicSalary < 23250) {
+            return 1035.00;
+        } else if (basicSalary >= 23250 && basicSalary < 23750) {
+            return 1057.50;
+        } else if (basicSalary >= 23750 && basicSalary < 24250) {
+            return 1080.00;
+        } else {
+            return 1125.00; // Default contribution for over salary
+        }
+    }
+
+    // Method to calculate Pag-IBIG contribution based on basic salary
+    private double calculatePagibigContribution(double monthlyBasicSalary) {
+
+        if (monthlyBasicSalary > 1500) {
+            // Employee's Contribution Rate 2%
+            double employeeContribution = 0.02 * monthlyBasicSalary;
+            // Employer's Contribution Rate 2%
+            double employerContribution = 0.02 * monthlyBasicSalary;
+            // Total Contribution 4%
+            double totalContribution = employeeContribution + employerContribution;
+            // Limit the total contribution to 100
+            return Math.min(totalContribution, 100.0);
+        } else {
+            return 0.0;
+        }
+    }
+
+    private double calculatePhilhealthContribution(double monthlyBasicSalary) {
+        if (monthlyBasicSalary <= 10000) {
+            return 300.0; // Monthly Premium 300
+        } else if (monthlyBasicSalary > 10000 && monthlyBasicSalary <= 59999.99) {
+            // Premium Rate 3% - Monthly Premium - 300 up to 1,800
+            return 0.03 * monthlyBasicSalary - 300;
+        } else if (monthlyBasicSalary >= 60000) {
+            // Premium Rate 3% - Monthly Premium 1,800
+            return 1800.0;
+        } else {
+            // Handle other cases if needed
+            return 0.0;
+        }
+    }
+
+    // Method to calculate withholding tax based on total earnings
+    private double calculateAnnualTax(double annualTax) {
+        if (annualTax <= 250000) {
+            return 0.0; // No withholding tax
+
+        } else if (annualTax > 250000 && annualTax <= 400000) {
+
+            return 0.15 * (annualTax - 250000);
+
+        } else if (annualTax > 400000 && annualTax <= 800000) {
+
+            return 22500 + 0.20 * (annualTax - 400000);
+
+        } else if (annualTax > 800000 && annualTax <= 2000000) {
+
+            return 102500 + 0.25 * (annualTax - 800000);
+
+        } else if (annualTax > 2000000 && annualTax <= 8000000) {
+
+            return 402500 + 0.30 * (annualTax - 2000000);
+        } else if (annualTax <= 8000000) {
+
+            return 2202500 + .35 * (annualTax - 8000000);
+        }
+        return 0;
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -794,7 +1051,10 @@ public class FinanceFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable PayrollTable;
-    private javax.swing.JButton btnCalculate;
+    private javax.swing.JButton btnGenerate;
+    private javax.swing.JComboBox<String> dateChooserMonth;
+    private javax.swing.JComboBox<String> dateChooserPeriod;
+    private javax.swing.JComboBox<String> dateChooserYear;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
