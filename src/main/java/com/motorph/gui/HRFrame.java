@@ -363,7 +363,7 @@ public class HRFrame extends javax.swing.JFrame {
     }
 
     // Get data from the selected row
-    int employeeId = (int) EmployeeMngtTable.getValueAt(selectedRow, 0); // assuming first column is ID
+    int employeeId = (int) EmployeeMngtTable.getValueAt(selectedRow, 0);
     String firstName = (String) EmployeeMngtTable.getValueAt(selectedRow, 2);
     String lastName = (String) EmployeeMngtTable.getValueAt(selectedRow, 1);
     String birthday = EmployeeMngtTable.getValueAt(selectedRow, 3).toString();

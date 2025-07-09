@@ -525,7 +525,7 @@ public class AddEmployeeForm extends javax.swing.JPanel {
                    + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement stmt = conn.prepareStatement(sql);
-        stmt.setString(1, employeeNum); // ✅ FIXED
+        stmt.setString(1, employeeNum);
         stmt.setString(2, firstName);
         stmt.setString(3, lastName);
         stmt.setString(4, birthday);

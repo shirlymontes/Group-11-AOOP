@@ -1,5 +1,6 @@
 package com.motorph.gui;
 
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -127,7 +128,6 @@ public class FinanceFrame extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(1500, 1000));
 
         jPanel1.setBackground(new java.awt.Color(233, 233, 233));
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 700));
@@ -216,7 +216,7 @@ public class FinanceFrame extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addComponent(btnGenerate)
                         .addGap(19, 19, 19))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 762, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addGap(27, 27, 27))
         );
         jPanel10Layout.setVerticalGroup(
@@ -257,9 +257,9 @@ public class FinanceFrame extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addGap(1103, 1103, 1103)
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                 .addGap(67, 67, 67))
         );
         jPanel11Layout.setVerticalGroup(
@@ -680,9 +680,7 @@ public class FinanceFrame extends javax.swing.JFrame {
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(3, 3, 3)
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -751,9 +749,8 @@ public class FinanceFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1488, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1494, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -780,124 +777,104 @@ public class FinanceFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_tfNetPayActionPerformed
 
     private void btnGenerateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateActionPerformed
-       String selectedMonth = (String) dateChooserMonth.getSelectedItem();
-            String selectedYear = (String) dateChooserYear.getSelectedItem();
-            String selectedPeriod = (String) dateChooserPeriod.getSelectedItem();
+                  
+                                       
+    String selectedMonth = (String) dateChooserMonth.getSelectedItem();
+    String selectedYear = (String) dateChooserYear.getSelectedItem();
+    String selectedPeriod = (String) dateChooserPeriod.getSelectedItem();
 
-            if (selectedMonth == null || selectedYear == null || selectedPeriod == null) {
-                JOptionPane.showMessageDialog(this, "Please select Month, Year, and Period.");
-                return;
-            }
+    if (selectedMonth.equalsIgnoreCase("Select Month") || selectedYear == null || selectedPeriod == null) {
+        JOptionPane.showMessageDialog(null, "Please select Month, Year, and Period.");
+        return;
+    }
 
-            int month;
-            try {
-                month = Month.valueOf(selectedMonth.toUpperCase()).getValue() - 1; // Calendar uses 0-based months
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Invalid month: " + selectedMonth);
-                return;
-            }
+    int month;
+    try {
+        month = Month.valueOf(selectedMonth.toUpperCase()).getValue() - 1; // Calendar uses 0-based months
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "Invalid month: " + selectedMonth);
+        return;
+    }
 
-            int year = Integer.parseInt(selectedYear);
+    int year = Integer.parseInt(selectedYear);
 
+    Calendar cal = Calendar.getInstance();
+    cal.set(Calendar.YEAR, year);
+    cal.set(Calendar.MONTH, month);
 
+    java.sql.Date startDate, endDate;
 
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, month);
+    if (selectedPeriod.equalsIgnoreCase("1st-15th")) {
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        startDate = new java.sql.Date(cal.getTimeInMillis());
+        cal.set(Calendar.DAY_OF_MONTH, 15);
+        endDate = new java.sql.Date(cal.getTimeInMillis());
+    } else {
+        cal.set(Calendar.DAY_OF_MONTH, 16);
+        startDate = new java.sql.Date(cal.getTimeInMillis());
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
+        endDate = new java.sql.Date(cal.getTimeInMillis());
+    }
 
-            java.sql.Date startDate, endDate;
+    try (Connection conn = DriverManager.getConnection(
+            "jdbc:mysql://localhost:3306/payroll_db", "root", "mmdcaoop")) {
 
-            if (selectedPeriod.equalsIgnoreCase("1st Half")) {
-                cal.set(Calendar.DAY_OF_MONTH, 1);
-                startDate = new java.sql.Date(cal.getTimeInMillis());
-                cal.set(Calendar.DAY_OF_MONTH, 15);
-                endDate = new java.sql.Date(cal.getTimeInMillis());
-            } else {
-                cal.set(Calendar.DAY_OF_MONTH, 16);
-                startDate = new java.sql.Date(cal.getTimeInMillis());
-                cal.set(Calendar.DAY_OF_MONTH, cal.getActualMaximum(Calendar.DAY_OF_MONTH));
-                endDate = new java.sql.Date(cal.getTimeInMillis());
-            }
+        String sql = "SELECT e.employee_id, e.first_name, e.last_name, e.hourly_rate, " +
+                     "SUM(a.hours_worked) AS total_hours " +
+                     "FROM employee e " +
+                     "JOIN attendance a ON e.employee_id = a.employee_id " +
+                     "WHERE a.date BETWEEN ? AND ? " +
+                     "GROUP BY e.employee_id";
 
-            System.out.println("Payroll Period: " + startDate + " to " + endDate);
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setDate(1, startDate);
+        stmt.setDate(2, endDate);
 
-            try (Connection conn = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/payroll_db", "root", "mmdcaoop")) {
+        ResultSet rs = stmt.executeQuery();
 
-                String sql = "SELECT e.employee_id, e.first_name, e.last_name, e.hourly_rate, "
-                           + "e.rice_subsidy, e.phone_allowance, e.clothing_allowance, "
-                           + "SUM(a.hours_worked) as total_hours "
-                           + "FROM employee e "
-                           + "JOIN attendance a ON e.employee_id = a.employee_id "
-                           + "WHERE a.date BETWEEN ? AND ? "
-                           + "GROUP BY e.employee_id";
+        DefaultTableModel model = (DefaultTableModel) PayrollTable.getModel();
+        model.setRowCount(0);
 
-                PreparedStatement stmt = conn.prepareStatement(sql);
-                stmt.setDate(1, startDate);
-                stmt.setDate(2, endDate);
+        while (rs.next()) {
+            int empId = rs.getInt("employee_id");
+            String name = rs.getString("first_name") + " " + rs.getString("last_name");
+            double hourlyRate = rs.getDouble("hourly_rate");
+            double totalHours = rs.getDouble("total_hours");
 
-                ResultSet rs = stmt.executeQuery();
+            double basicSalary = hourlyRate * totalHours;
+            double gross = basicSalary;
 
+            double sss = calculateSssContribution(basicSalary);
+            double pagibig = calculatePagibigContribution(basicSalary);
+            double philhealth = calculatePhilhealthContribution(basicSalary);
+            double tax = calculateAnnualTax(gross * 12) / 12;
 
-                DefaultTableModel model = (DefaultTableModel) PayrollTable.getModel();
-                model.setRowCount(0);
+            double totalDeductions = sss + pagibig + philhealth + tax;
+            double netPay = gross - totalDeductions;
 
-                while (rs.next()) {
-                    int empId = rs.getInt("employee_id");
-                    String name = rs.getString("first_name") + " " + rs.getString("last_name");
-                    double hourlyRate = rs.getDouble("hourly_rate");
-                    double totalHours = rs.getDouble("total_hours");
-                    double rice = rs.getDouble("rice_subsidy");
-                    double phone = rs.getDouble("phone_allowance");
-                    double clothing = rs.getDouble("clothing_allowance");
+            String status = "Pending";
 
-                    double basicSalary = hourlyRate * totalHours;
-                    double gross = basicSalary + rice + phone + clothing;
+            model.addRow(new Object[] {
+                empId,
+                name,
+                totalHours,
+                basicSalary,
+                sss,
+                pagibig,
+                philhealth,
+                tax,
+                gross,
+                netPay,
+                status
+            });
+        }
 
-                    double sssContribution = calculateSssContribution(basicSalary);
-                    double pagibigContribution = calculatePagibigContribution(basicSalary);
-                    double philhealthContribution = calculatePhilhealthContribution(basicSalary);
+        JOptionPane.showMessageDialog(null, "Payroll generated successfully!");
 
-                    double annualTax = calculateAnnualTax(gross * 12);
-                    double withHoldingTax = annualTax / 12;
-
-                    double totalDeductions = sssContribution + pagibigContribution + philhealthContribution + withHoldingTax;
-                    double netSalary = gross - totalDeductions;
-
-
-                    String status = "Pending";
-
-
-                    model.addRow(new Object[] {
-                        empId,
-                        name,
-                        totalHours,
-                        basicSalary,
-                        gross,
-                       sssContribution,
-                       pagibigContribution,
-                       philhealthContribution,
-                       withHoldingTax,
-                        netSalary,
-                        status
-                    });
-
-                    System.out.println(empId + " | " + name + " | Hours: " + totalHours
-                        + " | Gross: " + gross
-                        + " | Deductions: " + totalDeductions
-                        + " | Net: " + netSalary
-                        + " | Status: " + status);
-                }
-
-                JOptionPane.showMessageDialog(this, "Payroll generated successfully!");
-
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(this, "Error generating payroll: " + ex.getMessage());
-
-            }
-
-
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error generating payroll: " + ex.getMessage());
+    }
     
     }//GEN-LAST:event_btnGenerateActionPerformed
 

@@ -565,7 +565,7 @@ public class EditEmployeeForm extends javax.swing.JFrame {
                 stmt.setString(17, hourlyRate);
                 stmt.setString(18, grossSemi);
 
-                    // WHERE clause
+                   
                     stmt.setInt(19, employeeID);
             int rowsAffected = stmt.executeUpdate();
 
