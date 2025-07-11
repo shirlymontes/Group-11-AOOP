@@ -179,9 +179,8 @@ private void addImageToPanel() {
     }//GEN-LAST:event_usernameFieldActionPerformed
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-     
-    String username = usernameField.getText();
-    String password = new String(passwordField.getPassword());
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
 
     try {
         Connection conn = DBConnection.getConnection();
@@ -193,17 +192,32 @@ private void addImageToPanel() {
 
         if (rs.next()) {
             String role = rs.getString("role");
-            //JOptionPane.showMessageDialog(this, "Login successful! Role: " + role);
-  
-            if ("EMPLOYEE".equals(role)) {
-                new EmployeeFrame().setVisible(true);
-            } else if ("HR".equals(role)) {
+
+            if ("EMPLOYEE".equalsIgnoreCase(role)) {
+               
+                String empSql = "SELECT employee_id FROM employee WHERE username = ?";
+                PreparedStatement empPs = conn.prepareStatement(empSql);
+                empPs.setString(1, username);
+                ResultSet empRs = empPs.executeQuery();
+
+                if (empRs.next()) {
+                    int empId = empRs.getInt("employee_id");
+                    new EmployeeFrame(empId).setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Employee record not found!");
+                }
+
+                empRs.close();
+                empPs.close();
+
+            } else if ("HR".equalsIgnoreCase(role)) {
                 new HRFrame().setVisible(true);
-            } else if ("FINANCE".equals(role)) {
+            } else if ("FINANCE".equalsIgnoreCase(role)) {
                 new FinanceFrame().setVisible(true);
             }
 
-            this.dispose(); // close login window
+            this.dispose();
+
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password.");
         }
@@ -211,14 +225,14 @@ private void addImageToPanel() {
         rs.close();
         ps.close();
         conn.close();
+
     } catch (Exception e) {
         e.printStackTrace();
         JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
     }
-
-
     }//GEN-LAST:event_loginButtonActionPerformed
-
+    
+    
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordFieldActionPerformed
