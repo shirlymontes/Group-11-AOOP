@@ -10,6 +10,22 @@
         <maven.compiler.release>24</maven.compiler.release>
         <exec.mainClass>main.PayrollSystem</exec.mainClass>
     </properties>
+    <build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.2.2</version>
+            <configuration>
+                <archive>
+                    <manifest>
+                        <mainClass>main.PayrollSystem</mainClass>
+                    </manifest>
+                </archive>
+            </configuration>
+        </plugin>
+    </plugins>
+        </build>
 <dependencies>
   
     <!-- FlatLaf core -->
@@ -46,7 +62,17 @@
     <version>0.4</version>
       <type>jar</type>
     </dependency>
-
-
+    <!-- Jasper Reports -->
+    <dependency>
+        <groupId>net.sf.jasperreports</groupId>
+        <artifactId>jasperreports</artifactId>
+        <version>7.0.3</version>
+    </dependency>
+    <dependency>
+        <groupId>jasperreports</groupId>
+        <artifactId>jasperreports</artifactId>
+      <version>3.5.3</version>
+      <type>jar</type>
+    </dependency>
 </dependencies>
 </project>

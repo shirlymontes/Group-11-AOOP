@@ -1,0 +1,72 @@
+@startuml
+annotation java.lang.SuppressWarnings
+class com.motorph.gui.Banner
+class com.motorph.gui.EmployeeFrame
+class com.motorph.gui.FinanceFrame
+class com.motorph.gui.HRFrame
+class com.motorph.gui.LoginFrame
+class controllers.EmployeeController
+class form.AddEmployeeForm
+class form.EditEmployeeForm
+class java.awt.BorderLayout
+class java.awt.event.ActionEvent
+class java.sql.Connection
+class java.sql.DriverManager
+class java.sql.PreparedStatement
+class java.sql.ResultSet
+class java.sql.SQLException
+class java.text.NumberFormat
+class java.time.Month
+class java.util.Calendar
+class javax.swing.ImageIcon
+class javax.swing.JFrame
+class javax.swing.JLabel
+class javax.swing.JOptionPane
+class javax.swing.JPanel
+class javax.swing.JScrollPane
+class javax.swing.JTable
+class javax.swing.table.DefaultTableModel
+class model.Employee
+class service.DBConnection
+com.motorph.gui.Banner ..> java.lang.SuppressWarnings
+com.motorph.gui.Banner --|> javax.swing.JPanel
+com.motorph.gui.EmployeeFrame ..> java.lang.SuppressWarnings
+com.motorph.gui.EmployeeFrame ..> controllers.EmployeeController
+com.motorph.gui.EmployeeFrame ..> java.awt.BorderLayout
+com.motorph.gui.EmployeeFrame --|> javax.swing.JFrame
+com.motorph.gui.EmployeeFrame ..> model.Employee
+com.motorph.gui.FinanceFrame ..> java.lang.SuppressWarnings
+com.motorph.gui.FinanceFrame ..> java.awt.event.ActionEvent
+com.motorph.gui.FinanceFrame ..> java.sql.Connection
+com.motorph.gui.FinanceFrame ..> java.sql.DriverManager
+com.motorph.gui.FinanceFrame ..> java.sql.PreparedStatement
+com.motorph.gui.FinanceFrame ..> java.sql.ResultSet
+com.motorph.gui.FinanceFrame ..> java.text.NumberFormat
+com.motorph.gui.FinanceFrame ..> java.time.Month
+com.motorph.gui.FinanceFrame ..> java.util.Calendar
+com.motorph.gui.FinanceFrame --|> javax.swing.JFrame
+com.motorph.gui.FinanceFrame ..> javax.swing.JOptionPane
+com.motorph.gui.FinanceFrame ..> javax.swing.table.DefaultTableModel
+com.motorph.gui.HRFrame ..> java.lang.SuppressWarnings
+com.motorph.gui.HRFrame ..> form.AddEmployeeForm
+com.motorph.gui.HRFrame ..> form.EditEmployeeForm
+com.motorph.gui.HRFrame ..> java.sql.Connection
+com.motorph.gui.HRFrame ..> java.sql.DriverManager
+com.motorph.gui.HRFrame ..> java.sql.PreparedStatement
+com.motorph.gui.HRFrame ..> java.sql.ResultSet
+com.motorph.gui.HRFrame ..> java.sql.SQLException
+com.motorph.gui.HRFrame --|> javax.swing.JFrame
+com.motorph.gui.HRFrame ..> javax.swing.JOptionPane
+com.motorph.gui.HRFrame ..> javax.swing.JScrollPane
+com.motorph.gui.HRFrame ..> javax.swing.JTable
+com.motorph.gui.HRFrame ..> javax.swing.table.DefaultTableModel
+com.motorph.gui.LoginFrame ..> java.lang.SuppressWarnings
+com.motorph.gui.LoginFrame ..> java.sql.Connection
+com.motorph.gui.LoginFrame ..> java.sql.PreparedStatement
+com.motorph.gui.LoginFrame ..> java.sql.ResultSet
+com.motorph.gui.LoginFrame ..> javax.swing.ImageIcon
+com.motorph.gui.LoginFrame --|> javax.swing.JFrame
+com.motorph.gui.LoginFrame ..> javax.swing.JLabel
+com.motorph.gui.LoginFrame ..> javax.swing.JOptionPane
+com.motorph.gui.LoginFrame ..> service.DBConnection
+@enduml
