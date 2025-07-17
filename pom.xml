@@ -26,6 +26,13 @@
         </plugin>
     </plugins>
         </build>
+     <repositories>
+    <repository>
+        <id>jaspersoft-repo</id>
+        <name>JasperReports Repository</name>
+        <url>https://jaspersoft.jfrog.io/artifactory/jaspersoft-repo/</url>
+    </repository>
+    </repositories>
 <dependencies>
   
     <!-- FlatLaf core -->
@@ -57,21 +64,30 @@
     </dependency>
      <!-- BCrypt Library -->
     <dependency>
-    <groupId>org.mindrot</groupId>
-    <artifactId>jbcrypt</artifactId>
-    <version>0.4</version>
-      <type>jar</type>
+        <groupId>org.mindrot</groupId>
+        <artifactId>jbcrypt</artifactId>
+        <version>0.4</version>
+        <type>jar</type>
     </dependency>
     <!-- Jasper Reports -->
     <dependency>
         <groupId>net.sf.jasperreports</groupId>
         <artifactId>jasperreports</artifactId>
-        <version>7.0.3</version>
+        <version>6.20.0</version>
     </dependency>
+    
+        
+    <!-- JUnit -->
     <dependency>
-        <groupId>jasperreports</groupId>
-        <artifactId>jasperreports</artifactId>
-      <version>3.5.3</version>
+    <groupId>org.junit.jupiter</groupId>
+    <artifactId>junit-jupiter</artifactId>
+    <version>5.10.0</version>
+    <scope>test</scope>
+</dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+      <version>5.13.0-M3</version>
       <type>jar</type>
     </dependency>
 </dependencies>

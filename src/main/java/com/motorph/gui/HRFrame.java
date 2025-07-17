@@ -55,7 +55,7 @@ public class HRFrame extends javax.swing.JFrame {
         ResultSet rs = stmt.executeQuery();
 
         DefaultTableModel model = (DefaultTableModel) EmployeeMngtTable.getModel();
-        model.setRowCount(0); // clear old data
+        model.setRowCount(0); 
 
         while (rs.next()) {
             int employeeId = rs.getInt("employee_id");

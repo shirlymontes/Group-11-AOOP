@@ -2,10 +2,16 @@ package com.motorph.gui;
 
 import controllers.EmployeeController;
 import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import model.Employee;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -22,7 +28,11 @@ public class EmployeeFrame extends javax.swing.JFrame {
         initComponents();
         showEmployeeInfo(empId);
         banner = new Banner();
-        getContentPane().add(banner, BorderLayout.NORTH);
+        loadPayslipTable();
+        
+        getContentPane().add(banner, BorderLayout.NORTH);    
+        String[] columnNames = {"Employee ID", "Basic Salary", "Gross Salary", "Total Allowance", "Total Deductions", "Net Pay"};
+         
     }
 
     private void showEmployeeInfo(int empId) {
@@ -38,10 +48,37 @@ public class EmployeeFrame extends javax.swing.JFrame {
             lblPhoneNumber.setText("Phone Number: " + emp.getPhoneNumber());
             lblPosition.setText("Position: " + emp.getPosition());
         }
-    
+        
+    }
+    public void loadPayslipTable() {
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "mmdcaoop");
+        String query = "SELECT employee_id, basic_salary, gross_income, total_allowance, total_deductions, net_pay FROM payslip";
+        PreparedStatement pst = con.prepareStatement(query);
+        ResultSet rs = pst.executeQuery();
+
+        DefaultTableModel model = (DefaultTableModel) PayslipTable.getModel();
+        model.setRowCount(0); 
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("employee_id"),
+                rs.getDouble("basic_salary"),
+                rs.getDouble("gross_income"),
+                rs.getDouble("total_allowance"),
+                rs.getDouble("total_deductions"),
+                rs.getDouble("net_pay")
+            };
+            model.addRow(row);
+        }
+
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error loading payslip data");
+    }
+
 }
-
-
+     
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,15 +184,16 @@ public class EmployeeFrame extends javax.swing.JFrame {
         PayslipTable.setBackground(new java.awt.Color(255, 255, 255));
         PayslipTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Employee ID", "Pay Period", "Gross Salary", "Net Pay"
+                "Employee ID", "Basic Salary", "Gross Salary", "Total Allowance", "Total Deductions", "Net Pay"
             }
         ));
+        PayslipTable.setToolTipText("");
         jScrollPane2.setViewportView(PayslipTable);
 
         btnPrint.setText("Print Payslip");
@@ -236,36 +274,35 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
        
-    int selectedRow = PayslipTable.getSelectedRow();
-    
+   int selectedRow = PayslipTable.getSelectedRow();
+
     if (selectedRow == -1) {
-        JOptionPane.showMessageDialog(this, "Please select a payslip from the table to print.");
+        JOptionPane.showMessageDialog(null, "Please select a payslip to print.");
         return;
     }
-    
-    int employeeId = (int) PayslipTable.getValueAt(selectedRow, 1);
-    
-    try {
-        JasperReport jasperReport = JasperCompileManager.compileReport(
-            getClass().getResourceAsStream("/reports/payslip.jrxml")
-        );
 
-        Connection conn = DBConnection.getConnection();
+    int employeeId = (int) PayslipTable.getValueAt(selectedRow, 0); 
+
+    try {
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "mmdcaoop");
+        InputStream reportStream = getClass().getResourceAsStream("C:/Users/shirl/JaspersoftWorkspace/MyReports/payslip.jrxml");
+        if (reportStream == null) {
+            throw new FileNotFoundException("Could not find payslip.jrxml in resources/reports/");
+        }
+
+        JasperReport jr = JasperCompileManager.compileReport(reportStream);
 
         Map<String, Object> parameters = new HashMap<>();
-        parameters.put("EmployeeID", employeeId);
+        parameters.put("employee_id", employeeId);
 
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, conn);
+        JasperPrint jp = JasperFillManager.fillReport(jr, parameters, con);
+        JasperViewer.viewReport(jp, false);
 
-        JasperViewer.viewReport(jasperPrint, false);
-
-        conn.close();
-
-    } catch (Exception ex) {
-        ex.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error printing payslip: " + ex.getMessage());
+        con.close();
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error printing payslip.");
     }
-
 
     }//GEN-LAST:event_btnPrintActionPerformed
 
