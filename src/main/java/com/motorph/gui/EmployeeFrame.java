@@ -18,6 +18,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
+import net.sf.jasperreports.engine.util.JRLoader;
 import service.DBConnection;
 
 public class EmployeeFrame extends javax.swing.JFrame {
@@ -274,23 +275,23 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
     private void btnPrintActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrintActionPerformed
        
-   int selectedRow = PayslipTable.getSelectedRow();
+    int selectedRow = PayslipTable.getSelectedRow();
 
     if (selectedRow == -1) {
         JOptionPane.showMessageDialog(null, "Please select a payslip to print.");
         return;
     }
 
-    int employeeId = (int) PayslipTable.getValueAt(selectedRow, 0); 
+    int employeeId = (int) PayslipTable.getValueAt(selectedRow, 0);
 
     try {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/payroll_db", "root", "mmdcaoop");
-        InputStream reportStream = getClass().getResourceAsStream("C:/Users/shirl/JaspersoftWorkspace/MyReports/payslip.jrxml");
+        InputStream reportStream = getClass().getResourceAsStream("/reports/payslip.jasper");
         if (reportStream == null) {
-            throw new FileNotFoundException("Could not find payslip.jrxml in resources/reports/");
+            throw new FileNotFoundException("Could not find payslip.jasper in /src/main/resources/reports/");
         }
 
-        JasperReport jr = JasperCompileManager.compileReport(reportStream);
+        JasperReport jr = (JasperReport) JRLoader.loadObject(reportStream);
 
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("employee_id", employeeId);
@@ -301,8 +302,9 @@ public class EmployeeFrame extends javax.swing.JFrame {
         con.close();
     } catch (Exception e) {
         e.printStackTrace();
-        JOptionPane.showMessageDialog(null, "Error printing payslip.");
+        JOptionPane.showMessageDialog(null, "Error printing payslip. See console for details.");
     }
+
 
     }//GEN-LAST:event_btnPrintActionPerformed
 

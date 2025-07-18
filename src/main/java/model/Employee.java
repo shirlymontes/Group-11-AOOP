@@ -26,7 +26,6 @@ public class Employee {
         this.position = position;
     }
 
-    // GETTERS & SETTERS
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
