@@ -22,7 +22,8 @@ public class EditEmployeeForm extends javax.swing.JFrame {
     private int employeeId;
 
     public EditEmployeeForm(HRFrame hrFrame, int employeeId, String firstName, String lastName, String birthday, String address,
-                            String phoneNumber, String sss, String philHealth, String tin, String pagIbig, String employmentStatus) {
+                            String phoneNumber, String sss, String philHealth, String tin, String pagIbig, String employmentStatus, String position, 
+                            String supervisor, String basicSalary, String riceSubsidy, String phoneAllowance, String clothingAllowance, String hourlyRate, String grossSemi) {
         initComponents();
         this.hrFrame = hrFrame;
         
@@ -40,6 +41,14 @@ public class EditEmployeeForm extends javax.swing.JFrame {
         tfTin.setText(tin);
         tfPagIbig.setText(pagIbig);
         tfStatus.setText(employmentStatus);
+        tfPosition.setText(position);
+        tfSupervisor.setText(supervisor);
+        tfBasicSalary.setText(basicSalary);
+        tfRiceSubsidy.setText(riceSubsidy);
+        tfPhoneAllowance.setText(phoneAllowance);
+        tfClothingAllowance.setText(clothingAllowance);
+        tfHourlyRate.setText(hourlyRate);
+        tfGrossSemi.setText(grossSemi);
     }
 
     public EditEmployeeForm() {

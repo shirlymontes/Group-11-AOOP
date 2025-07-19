@@ -58,22 +58,54 @@ public class FinanceFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
+        banner1 = new com.motorph.gui.Banner();
+        roundedPanel1 = new com.motorph.gui.RoundedPanel();
+        jLabel27 = new javax.swing.JLabel();
+        roundedPanel2 = new com.motorph.gui.RoundedPanel();
+        btnGenerate = new javax.swing.JButton();
+        jLabel28 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         PayrollTable = new javax.swing.JTable();
-        jLabel28 = new javax.swing.JLabel();
-        btnGenerate = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
-        jLabel27 = new javax.swing.JLabel();
-        banner1 = new com.motorph.gui.Banner();
+        roundedPanel3 = new com.motorph.gui.RoundedPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(233, 233, 233));
         jPanel1.setPreferredSize(new java.awt.Dimension(1000, 700));
 
-        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel27.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel27.setText("DASHBOARD");
+
+        javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
+        roundedPanel1.setLayout(roundedPanel1Layout);
+        roundedPanel1Layout.setHorizontalGroup(
+            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel27)
+                .addContainerGap(518, Short.MAX_VALUE))
+        );
+        roundedPanel1Layout.setVerticalGroup(
+            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel1Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel27)
+                .addContainerGap(306, Short.MAX_VALUE))
+        );
+
+        btnGenerate.setBackground(new java.awt.Color(153, 204, 255));
+        btnGenerate.setForeground(new java.awt.Color(0, 0, 0));
+        btnGenerate.setText("Generate");
+        btnGenerate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateActionPerformed(evt);
+            }
+        });
+
+        jLabel28.setBackground(new java.awt.Color(153, 153, 153));
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel28.setText("PAYROLL ");
 
         PayrollTable.setBackground(new java.awt.Color(255, 255, 255));
         PayrollTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -121,67 +153,43 @@ public class FinanceFrame extends javax.swing.JFrame {
         PayrollTable.setSelectionBackground(new java.awt.Color(0, 102, 153));
         jScrollPane1.setViewportView(PayrollTable);
 
-        jLabel28.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel28.setText("PAYROLL ");
-
-        btnGenerate.setText("Generate");
-        btnGenerate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerateActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addGap(27, 27, 27))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
+        javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
+        roundedPanel2.setLayout(roundedPanel2Layout);
+        roundedPanel2Layout.setHorizontalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(roundedPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1271, Short.MAX_VALUE)
+                        .addGap(31, 31, 31))
+                    .addGroup(roundedPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel28)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGenerate)
-                        .addGap(35, 35, 35))))
+                        .addComponent(btnGenerate, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(73, 73, 73))))
         );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(btnGenerate))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
-                .addGap(17, 17, 17))
-        );
-
-        jPanel12.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel12.setForeground(new java.awt.Color(153, 153, 153));
-
-        jLabel27.setBackground(new java.awt.Color(153, 153, 153));
-        jLabel27.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel27.setText("DASHBOARD");
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
+        roundedPanel2Layout.setVerticalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addGap(20, 20, 20)
-                .addComponent(jLabel27)
-                .addContainerGap(1190, Short.MAX_VALUE))
+                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel28, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGenerate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33))
         );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel27)
-                .addContainerGap(167, Short.MAX_VALUE))
+
+        javax.swing.GroupLayout roundedPanel3Layout = new javax.swing.GroupLayout(roundedPanel3);
+        roundedPanel3.setLayout(roundedPanel3Layout);
+        roundedPanel3Layout.setHorizontalGroup(
+            roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+        );
+        roundedPanel3Layout.setVerticalGroup(
+            roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -189,36 +197,40 @@ public class FinanceFrame extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(73, 73, 73)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(banner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(roundedPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(604, 604, 604))))
-            .addComponent(banner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(banner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(27, 27, 27)
-                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(62, 62, 62))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(roundedPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 451, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1420, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1420, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 950, Short.MAX_VALUE)
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("");
@@ -322,13 +334,9 @@ public class FinanceFrame extends javax.swing.JFrame {
     private double calculatePagibigContribution(double monthlyBasicSalary) {
 
         if (monthlyBasicSalary > 1500) {
-            // Employee's Contribution Rate 2%
             double employeeContribution = 0.02 * monthlyBasicSalary;
-            // Employer's Contribution Rate 2%
-            double employerContribution = 0.02 * monthlyBasicSalary;
-            // Total Contribution 4%
+            double employerContribution = 0.04 * monthlyBasicSalary;            
             double totalContribution = employeeContribution + employerContribution;
-            // Limit the total contribution to 100
             return Math.min(totalContribution, 100.0);
         } else {
             return 0.0;
@@ -339,10 +347,10 @@ public class FinanceFrame extends javax.swing.JFrame {
         if (monthlyBasicSalary <= 10000) {
             return 300.0; // Monthly Premium 300
         } else if (monthlyBasicSalary > 10000 && monthlyBasicSalary <= 59999.99) {
-            // Premium Rate 3% - Monthly Premium - 300 up to 1,800
+            // Premium Rate 3%-Monthly Premium-300 up to 1,800
             return 0.03 * monthlyBasicSalary - 300;
         } else if (monthlyBasicSalary >= 60000) {
-            // Premium Rate 3% - Monthly Premium 1,800
+            // Premium Rate 3%-Monthly Premium 1,800
             return 1800.0;
         } else {
            
@@ -420,8 +428,9 @@ public class FinanceFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel12;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.motorph.gui.RoundedPanel roundedPanel1;
+    private com.motorph.gui.RoundedPanel roundedPanel2;
+    private com.motorph.gui.RoundedPanel roundedPanel3;
     // End of variables declaration//GEN-END:variables
 }

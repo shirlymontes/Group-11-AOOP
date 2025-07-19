@@ -2,28 +2,36 @@ package com.motorph.gui;
 
 import controllers.EmployeeController;
 import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.BoxLayout;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import model.Employee;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.view.JasperViewer;
 import net.sf.jasperreports.engine.util.JRLoader;
-import service.DBConnection;
+
 
 public class EmployeeFrame extends javax.swing.JFrame {
     
-    Banner banner;
+    Banner banner; 
     
     public EmployeeFrame(int empId) {
         initComponents();
@@ -33,8 +41,38 @@ public class EmployeeFrame extends javax.swing.JFrame {
         
         getContentPane().add(banner, BorderLayout.NORTH);    
         String[] columnNames = {"Employee ID", "Basic Salary", "Gross Salary", "Total Allowance", "Total Deductions", "Net Pay"};
-         
+        
+        clockLabel.setFont(new Font("Roboto",Font.BOLD, 50));
+        dateToday.setFont(new Font("Roboto", Font.ITALIC, 30));
+        
+        clockPanel.setLayout(new BoxLayout(clockPanel, BoxLayout.Y_AXIS));
+
+        clockLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        dateToday.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        clockPanel.add(dateToday);
+        clockPanel.add(clockLabel);
+
+        startClock();
     }
+    
+    private void startClock() {
+    Timer timer = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            LocalDate today = LocalDate.now();
+            LocalTime now = LocalTime.now();
+
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MMMM dd, yyyy");
+            DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+
+            dateToday.setText(today.format(dateFormatter));
+            clockLabel.setText(now.format(timeFormatter));
+            }
+        });
+        timer.start();
+        }
+
 
     private void showEmployeeInfo(int empId) {
         EmployeeController controller = new EmployeeController();
@@ -49,7 +87,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
             lblPhoneNumber.setText("Phone Number: " + emp.getPhoneNumber());
             lblPosition.setText("Position: " + emp.getPosition());
         }
-        
+
     }
     public void loadPayslipTable() {
     try {
@@ -90,80 +128,105 @@ public class EmployeeFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        lblFirstName = new javax.swing.JLabel();
+        banner1 = new com.motorph.gui.Banner();
+        roundedPanel1 = new com.motorph.gui.RoundedPanel();
+        roundedPanel2 = new com.motorph.gui.RoundedPanel();
+        lblPosition = new javax.swing.JLabel();
+        lblBirthday = new javax.swing.JLabel();
+        lblPhoneNumber = new javax.swing.JLabel();
         lblEmpID = new javax.swing.JLabel();
         lblLastName = new javax.swing.JLabel();
-        lblBirthday = new javax.swing.JLabel();
         lblAddress = new javax.swing.JLabel();
-        lblPhoneNumber = new javax.swing.JLabel();
-        lblPosition = new javax.swing.JLabel();
+        lblFirstName = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        roundedPanel3 = new com.motorph.gui.RoundedPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         PayslipTable = new javax.swing.JTable();
         btnPrint = new javax.swing.JButton();
-        banner1 = new com.motorph.gui.Banner();
+        roundedPanel4 = new com.motorph.gui.RoundedPanel();
+        jLabel3 = new javax.swing.JLabel();
+        clockPanel = new javax.swing.JPanel();
+        dateToday = new javax.swing.JLabel();
+        clockLabel = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(233, 233, 233));
         jPanel1.setFocusTraversalPolicyProvider(true);
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        javax.swing.GroupLayout roundedPanel1Layout = new javax.swing.GroupLayout(roundedPanel1);
+        roundedPanel1.setLayout(roundedPanel1Layout);
+        roundedPanel1Layout.setHorizontalGroup(
+            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 310, Short.MAX_VALUE)
+        );
+        roundedPanel1Layout.setVerticalGroup(
+            roundedPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
-        lblFirstName.setBackground(new java.awt.Color(0, 0, 153));
-        lblFirstName.setForeground(new java.awt.Color(0, 0, 0));
+        lblPosition.setBackground(new java.awt.Color(0, 0, 153));
+        lblPosition.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblPosition.setForeground(new java.awt.Color(0, 0, 0));
+
+        lblBirthday.setBackground(new java.awt.Color(0, 0, 153));
+        lblBirthday.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblBirthday.setForeground(new java.awt.Color(0, 0, 0));
+
+        lblPhoneNumber.setBackground(new java.awt.Color(0, 0, 153));
+        lblPhoneNumber.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblPhoneNumber.setForeground(new java.awt.Color(0, 0, 0));
 
         lblEmpID.setBackground(new java.awt.Color(0, 0, 153));
+        lblEmpID.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblEmpID.setForeground(new java.awt.Color(0, 0, 0));
 
         lblLastName.setBackground(new java.awt.Color(0, 0, 153));
+        lblLastName.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblLastName.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblBirthday.setBackground(new java.awt.Color(0, 0, 153));
-        lblBirthday.setForeground(new java.awt.Color(0, 0, 0));
-
         lblAddress.setBackground(new java.awt.Color(0, 0, 153));
+        lblAddress.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
         lblAddress.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblPhoneNumber.setBackground(new java.awt.Color(0, 0, 153));
-        lblPhoneNumber.setForeground(new java.awt.Color(0, 0, 0));
+        lblFirstName.setBackground(new java.awt.Color(0, 0, 153));
+        lblFirstName.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        lblFirstName.setForeground(new java.awt.Color(0, 0, 0));
 
-        lblPosition.setBackground(new java.awt.Color(0, 0, 153));
-        lblPosition.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("PROFILE");
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel1.setText("PROFILE");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(29, 29, 29)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblBirthday, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 450, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(lblLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 164, Short.MAX_VALUE))))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jLabel1)
+        javax.swing.GroupLayout roundedPanel2Layout = new javax.swing.GroupLayout(roundedPanel2);
+        roundedPanel2.setLayout(roundedPanel2Layout);
+        roundedPanel2Layout.setHorizontalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
+                .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(lblPosition, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblEmpID, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblBirthday, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblAddress, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblPhoneNumber, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(roundedPanel2Layout.createSequentialGroup()
+                        .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(lblLastName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblFirstName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(11, 11, 11)))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        roundedPanel2Layout.setVerticalGroup(
+            roundedPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel2Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addGap(27, 27, 27)
                 .addComponent(lblEmpID, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(lblLastName, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -177,12 +240,14 @@ public class EmployeeFrame extends javax.swing.JFrame {
                 .addComponent(lblPhoneNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(lblPosition, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("PAY HISTORY");
 
         PayslipTable.setBackground(new java.awt.Color(255, 255, 255));
+        PayslipTable.setForeground(new java.awt.Color(0, 0, 0));
         PayslipTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -195,8 +260,13 @@ public class EmployeeFrame extends javax.swing.JFrame {
             }
         ));
         PayslipTable.setToolTipText("");
+        PayslipTable.setGridColor(new java.awt.Color(255, 204, 0));
+        PayslipTable.setSelectionBackground(new java.awt.Color(0, 0, 51));
+        PayslipTable.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane2.setViewportView(PayslipTable);
 
+        btnPrint.setBackground(new java.awt.Color(0, 14, 61));
+        btnPrint.setForeground(new java.awt.Color(255, 255, 255));
         btnPrint.setText("Print Payslip");
         btnPrint.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,69 +274,139 @@ public class EmployeeFrame extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(28, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnPrint)
-                .addGap(47, 47, 47))
+        javax.swing.GroupLayout roundedPanel3Layout = new javax.swing.GroupLayout(roundedPanel3);
+        roundedPanel3.setLayout(roundedPanel3Layout);
+        roundedPanel3Layout.setHorizontalGroup(
+            roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel3Layout.createSequentialGroup()
+                .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, roundedPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2))
+                    .addGroup(roundedPanel3Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnPrint)))
+                .addGap(30, 30, 30))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(btnPrint)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+        roundedPanel3Layout.setVerticalGroup(
+            roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel3Layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(roundedPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnPrint))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(27, Short.MAX_VALUE))
+        );
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("TODAY IS");
+
+        clockPanel.setBackground(new java.awt.Color(255, 255, 255));
+        clockPanel.setLayout(new javax.swing.BoxLayout(clockPanel, javax.swing.BoxLayout.LINE_AXIS));
+        clockPanel.add(dateToday);
+
+        clockLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        clockPanel.add(clockLabel);
+
+        jButton1.setBackground(new java.awt.Color(255, 204, 0));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(51, 51, 51));
+        jButton1.setText("CLOCK IN");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setBackground(new java.awt.Color(255, 102, 102));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton2.setForeground(new java.awt.Color(51, 51, 51));
+        jButton2.setText("CLOCK OUT");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout roundedPanel4Layout = new javax.swing.GroupLayout(roundedPanel4);
+        roundedPanel4.setLayout(roundedPanel4Layout);
+        roundedPanel4Layout.setHorizontalGroup(
+            roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel4Layout.createSequentialGroup()
+                .addGroup(roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, roundedPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(clockPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(roundedPanel4Layout.createSequentialGroup()
+                        .addGroup(roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(roundedPanel4Layout.createSequentialGroup()
+                                .addGap(50, 50, 50)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(roundedPanel4Layout.createSequentialGroup()
+                                .addGap(123, 123, 123)
+                                .addComponent(jLabel3)))
+                        .addGap(0, 33, Short.MAX_VALUE)))
+                .addContainerGap())
+        );
+        roundedPanel4Layout.setVerticalGroup(
+            roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(roundedPanel4Layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(jLabel3)
+                .addGap(47, 47, 47)
+                .addComponent(clockPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(roundedPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(banner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(banner1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(roundedPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(roundedPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(roundedPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(banner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 36, Short.MAX_VALUE))
+                .addComponent(banner1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(roundedPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(roundedPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(roundedPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(roundedPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -308,6 +448,14 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnPrintActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -348,10 +496,15 @@ public class EmployeeFrame extends javax.swing.JFrame {
     private javax.swing.JTable PayslipTable;
     private com.motorph.gui.Banner banner1;
     private javax.swing.JButton btnPrint;
+    private javax.swing.JLabel clockLabel;
+    private javax.swing.JPanel clockPanel;
+    private javax.swing.JLabel dateToday;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblAddress;
     private javax.swing.JLabel lblBirthday;
@@ -360,5 +513,9 @@ public class EmployeeFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblLastName;
     private javax.swing.JLabel lblPhoneNumber;
     private javax.swing.JLabel lblPosition;
+    private com.motorph.gui.RoundedPanel roundedPanel1;
+    private com.motorph.gui.RoundedPanel roundedPanel2;
+    private com.motorph.gui.RoundedPanel roundedPanel3;
+    private com.motorph.gui.RoundedPanel roundedPanel4;
     // End of variables declaration//GEN-END:variables
 }
