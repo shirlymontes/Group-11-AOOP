@@ -37,12 +37,8 @@ public class EditPayrollForm extends javax.swing.JFrame {
         tfMonthlyRate = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tfDailyRate = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        tfDaysWorked = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         tfOvertime = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        tfGrossIncome = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -51,8 +47,6 @@ public class EditPayrollForm extends javax.swing.JFrame {
         tfPhoneAllowance = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         tfClothingAllowance = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        tfTotalBenefits = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
@@ -110,24 +104,11 @@ public class EditPayrollForm extends javax.swing.JFrame {
         tfDailyRate.setForeground(new java.awt.Color(255, 255, 255));
         tfDailyRate.setBorder(null);
 
-        jLabel6.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel6.setText("Days Worked");
-
-        tfDaysWorked.setForeground(new java.awt.Color(255, 255, 255));
-        tfDaysWorked.setBorder(null);
-
         jLabel7.setForeground(new java.awt.Color(51, 51, 51));
         jLabel7.setText("Overtime");
 
         tfOvertime.setForeground(new java.awt.Color(255, 255, 255));
         tfOvertime.setBorder(null);
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel8.setText("GROSS INCOME");
-
-        tfGrossIncome.setForeground(new java.awt.Color(255, 255, 255));
-        tfGrossIncome.setBorder(null);
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel10.setText("EARNINGS");
@@ -146,16 +127,12 @@ public class EditPayrollForm extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfMonthlyRate, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfMonthlyRate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
                             .addComponent(tfDailyRate, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfDaysWorked, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfOvertime, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfGrossIncome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfOvertime, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(16, 16, 16))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -171,22 +148,11 @@ public class EditPayrollForm extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(tfDailyRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(5, 5, 5)
-                        .addComponent(tfDaysWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel6)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(tfOvertime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(tfGrossIncome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
@@ -210,18 +176,6 @@ public class EditPayrollForm extends javax.swing.JFrame {
         tfClothingAllowance.setForeground(new java.awt.Color(255, 255, 255));
         tfClothingAllowance.setBorder(null);
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel15.setText("TOTAL");
-
-        tfTotalBenefits.setForeground(new java.awt.Color(255, 255, 255));
-        tfTotalBenefits.setBorder(null);
-        tfTotalBenefits.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfTotalBenefitsActionPerformed(evt);
-            }
-        });
-
         jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
         jLabel16.setText("BENEFITS");
 
@@ -237,15 +191,12 @@ public class EditPayrollForm extends javax.swing.JFrame {
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12)
-                            .addComponent(jLabel13)
-                            .addComponent(jLabel15))
+                            .addComponent(jLabel13))
                         .addGap(5, 5, 5)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(tfClothingAllowance, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                                .addComponent(tfPhoneAllowance)
-                                .addComponent(tfRiceAllowance))
-                            .addComponent(tfTotalBenefits, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfClothingAllowance, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                            .addComponent(tfPhoneAllowance)
+                            .addComponent(tfRiceAllowance))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -265,10 +216,6 @@ public class EditPayrollForm extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(tfClothingAllowance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tfTotalBenefits, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel15))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -455,7 +402,7 @@ public class EditPayrollForm extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(5, 5, 5)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -521,10 +468,6 @@ public class EditPayrollForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfTotalBenefitsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfTotalBenefitsActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfTotalBenefitsActionPerformed
-
     private void tfNetPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNetPayActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfNetPayActionPerformed
@@ -571,7 +514,6 @@ public class EditPayrollForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -586,9 +528,7 @@ public class EditPayrollForm extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -597,10 +537,8 @@ public class EditPayrollForm extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JTextField tfClothingAllowance;
     private javax.swing.JTextField tfDailyRate;
-    private javax.swing.JTextField tfDaysWorked;
     private javax.swing.JTextField tfDeductions;
     private javax.swing.JTextField tfEmpID;
-    private javax.swing.JTextField tfGrossIncome;
     private javax.swing.JTextField tfMonthlyRate;
     private javax.swing.JTextField tfName;
     private javax.swing.JTextField tfNetPay;
@@ -613,7 +551,6 @@ public class EditPayrollForm extends javax.swing.JFrame {
     private javax.swing.JTextField tfSummaryBenefits;
     private javax.swing.JTextField tfSummaryDeductions;
     private javax.swing.JTextField tfSummaryGross;
-    private javax.swing.JTextField tfTotalBenefits;
     private javax.swing.JTextField tfWithHolding;
     // End of variables declaration//GEN-END:variables
 }
