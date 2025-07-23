@@ -21,7 +21,6 @@ A **Java Swing Desktop Application** for automating payroll processes in **Motor
     - Basic Pay
     - Deductions: SSS, PhilHealth, Pag-IBIG, Withholding Tax
     - Net Pay
-  - Based on cut-off period and logged hours
 
 - **Payslip Generation**
     - Auto-generated payslip with detailed breakdown
