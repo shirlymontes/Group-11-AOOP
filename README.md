@@ -59,5 +59,6 @@ You can use the following credentials to log in:
 usernames: HR, Employees, or Finance
 password: 123
 
+
 This project is developed for **academic purposes** only. 
 
