@@ -8,13 +8,13 @@ A **Java Swing Desktop Application** for automating payroll processes in **Motor
 
 -  **Login Authentication**
   - Role-based access:
-    - **Employee** – View attendance and payslips
-    - **HR** – Manage employee records
-    - **Finance** – Compute payroll and generate payslips
+      - **Employee** – View attendance and payslips
+      - **HR** – Manage employee records
+      - **Finance** – Compute payroll and generate payslips
 
 -  **Employee Management**
-  - Add, update, delete employee profiles
-  - Includes position, rate, department, and employment status
+    - Add, update, delete employee profiles
+    - Includes position, rate, department, and employment status
 
 -  **Payroll Computation**
   - Automated calculation of:
@@ -24,8 +24,8 @@ A **Java Swing Desktop Application** for automating payroll processes in **Motor
   - Based on cut-off period and logged hours
 
 - **Payslip Generation**
-  - Auto-generated payslip with detailed breakdown
-  - Printable and downloadable
+    - Auto-generated payslip with detailed breakdown
+    - Printable and downloadable
 
 ---
 
