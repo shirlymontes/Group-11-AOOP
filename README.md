@@ -10,29 +10,19 @@ Features
 
 **Tech Stack**
 - Java (Swing)
+- Maven
 - MySQL
 - JDBC
 - NetBeans IDE
 - JasperReports
 
-**How to Run
-**
-Clone this repository:
-
-bash
-Copy
-Edit
-git clone https://github.com/yourusername/MotorPH-Payroll-System.git
-Import the project into NetBeans or any Java IDE.
-
-Create the payroll_db database in MySQL and import the included SQL dump.
-
-Set database credentials in DBConnection.java:
-
-java
-Copy
-Edit
-String url = "jdbc:mysql://localhost:3306/payroll_db";
-String user = "root";
-String password = "yourpassword";
-Run Main.java to launch the system.
+**How to Run**
+1. Clone this repository:
+  -  git clone https://github.com/yourusername/MotorPH-Payroll-System.git
+2. Import the project into NetBeans or any Java IDE.
+3. Create the payroll_db database in MySQL and import the included SQL dump.
+4. Set database credentials in DBConnection.java:
+    String url = "jdbc:mysql://localhost:3306/payroll_db";
+    String user = "root";
+    String password = "yourpassword";
+5. Run Main.java to launch the system.
