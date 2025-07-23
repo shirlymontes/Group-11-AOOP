@@ -55,3 +55,10 @@ A **Java Swing Desktop Application** for automating payroll processes in **Motor
     String password = "yourpassword";
 5. **Run and launch the system.**
 
+## Sample Users
+You can use the following credentials to log in:
+usernames: HR, Employees, or Finance
+password: 123
+
+This project is developed for **academic purposes** only. 
+
