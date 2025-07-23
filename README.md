@@ -1,28 +1,54 @@
-**MotorPH Payroll System**
-A desktop-based Payroll System for MotorPH developed in Java using Java Swing for the GUI and MySQL for the backend database. 
-This system supports HR, Finance, and Employee roles with secure login access, automated payroll generation, and employee management.
+# 💼 Payroll System - MotorPH
 
-Features
-- Login system with role-based access (Employee, HR, Finance)
-- Automatic payroll computation
-- Payslip generation and printing
-- Real-time data loading using JDBC
+A **Java Swing Desktop Application** for automating payroll processes in **MotorPH**. This system provides secure login, employee record management, attendance tracking, payroll computation, and payslip generation. It supports three types of users: **Employee**, **HR**, and **Finance**.
 
-**Tech Stack**
-- Java (Swing)
-- Maven
-- MySQL
-- JDBC
-- NetBeans IDE
-- JasperReports
+---
 
-**How to Run**
-1. Clone this repository:
-  -  git clone https://github.com/yourusername/MotorPH-Payroll-System.git
-2. Import the project into NetBeans or any Java IDE.
-3. Create the payroll_db database in MySQL and import the included SQL dump.
-4. Set database credentials in DBConnection.java:
-    String url = "jdbc:mysql://localhost:3306/payroll_db";
-    String user = "root";
-    String password = "yourpassword";
-5. Run Main.java to launch the system.
+## 📌 Features
+
+- 🔐 **Login Authentication**
+  - Role-based access:
+    - **Employee** – View attendance and payslips
+    - **HR** – Manage employee records, attendance, and leave requests
+    - **Finance** – Compute payroll and generate payslips
+
+- 👤 **Employee Management**
+  - Add, update, delete employee profiles
+  - Includes position, rate, department, and employment status
+
+- ⏱️ **Attendance Tracking**
+  - Time-in and time-out logs
+  - Accessible by HR and employees
+
+- 📝 **Leave Management**
+  - Leave request system for employees
+  - HR can approve or reject requests
+
+- 💰 **Payroll Computation**
+  - Automated calculation of:
+    - Basic Pay
+    - Deductions: SSS, PhilHealth, Pag-IBIG, Withholding Tax
+    - Net Pay
+  - Based on cut-off period and logged hours
+
+- 🧾 **Payslip Generation**
+  - Auto-generated payslip with detailed breakdown
+  - Printable and downloadable
+
+---
+
+## 🛠️ Tech Stack
+
+- **Java SE 24**
+- **Java Swing** (GUI Framework)
+- **MySQL** – via **JDBC**
+- **Maven** – Build & dependency management
+- **NetBeans IDE 25**
+
+---
+
+## ⚙️ Installation & Setup
+
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/yourusername/PayrollSystem.git
